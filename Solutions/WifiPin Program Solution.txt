@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+public class WifiPin {
+	public static String output1;
+	public static void main(String[] args) {
+		int roomNo = 0;
+		String lastName = null;
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Enter room no. and last name : ");
+		roomNo = scanner.nextInt();
+		lastName = scanner.nextLine();
+		
+		createWifiPin(roomNo,lastName);
+		scanner.close();
+	}
+	
+	public static void createWifiPin(int roomNo, String lastName) {
+		char specialChar[] = {')','!','@','#','$','%','^','&','*','('};
+
+		int unitsPin = 0;
+		char tensPin;
+		char hundredsPin;
+		int thousandsPin = 0;
+				
+// calculate units value of wifi pin
+		int roomNoRem = roomNo % 10; 
+		int roomNoCo = roomNo / 10;
+		roomNoRem = roomNoCo % 10;
+		unitsPin = roomNoRem;
+		
+// calculate tens value of wifi pin
+		tensPin = lastName.charAt(lastName.length() - 1);
+		
+// calculate hundreds value of wifi pin		
+		hundredsPin = specialChar[roomNo % 10];
+
+// calculate thousands value of wifi pin
+		thousandsPin = digitSum(roomNo);
+
+// create wifi pin
+		String wifiPin = String.valueOf(thousandsPin) + hundredsPin + tensPin + unitsPin;
+		System.out.println(wifiPin);
+	}
+	
+	public static int digitSum(int num) {
+		int digitSum = 0;
+		int digitLen = (int) Math.log10(num) + 1;
+		
+		for(int i=0; i<digitLen;i++) {
+			int numRem = num % 10;
+			num = num / 10;
+			digitSum = digitSum + numRem;			
+		}
+		
+		int dLen = (int) Math.log10(digitSum) + 1;
+		
+		if(digitSum==1) digitSum = 2;
+		
+		if(dLen>1) {
+			for(int i=0; i<dLen;i++) {
+				int numRem = digitSum % 10;
+				digitSum = digitSum / 10;
+				digitSum = digitSum + numRem;			
+			}			
+		}
+		
+		if(digitSum%2 != 0) {
+			digitSum = digitSum - 1;
+		}
+		
+		if(digitSum==1) digitSum = 2;
+		return digitSum;
+	}
+}

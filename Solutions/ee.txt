@@ -1,0 +1,178 @@
+import java.io.*;
+import  java.util.*;
+
+// Read only region start
+class UserMainCode
+{
+
+	public class Result{
+		public final String output1;
+		public final String output2;
+		public final String output3;
+
+		public Result(String out1, String out2, String out3){
+			output1 = out1;
+			output2 = out2;
+			output3 = out3;
+		}
+	}
+	
+    public Result encodeThreeStrings(String input1,String input2,String input3){
+    	// Read only region end
+        //Write code here...
+        String frontString1 = null;
+		String frontString2 = null;
+		String frontString3 = null;
+		
+		String middleString1 = null;
+		String middleString2 = null;
+		String middleString3 = null;
+		
+		String endString1 = null;
+		String endString2 = null;
+		String endString3 = null;
+		
+		int stringLength1 = 0;
+		int stringLength2 = 0;
+		int stringLength3 = 0;
+		
+// for input1
+		stringLength1 = input1.length();
+		if(stringLength1 % 3 == 0) {
+			
+			int co1 = stringLength1 / 3;
+			
+			frontString1 = input1.substring(0, co1);
+			middleString1 = input1.substring(co1, co1+co1);
+			endString1 = input1.substring(co1+co1);
+		}
+		
+		
+		if(stringLength1 % 3 == 1) {
+			
+			int co1 = stringLength1 / 3;
+			
+			if(stringLength1 % 2 ==0) {
+				frontString1 = input1.substring(0, co1);
+				middleString1 = input1.substring(co1, co1+2);
+				endString1 = input1.substring(co1+2);
+			} else if(stringLength1 % 2 !=0) {
+				frontString1 = input1.substring(0, co1);
+				middleString1 = input1.substring(co1, co1+3);
+				endString1 = input1.substring(co1+3);
+			} 
+		}
+		
+		if(stringLength1 % 3 == 2) {
+			
+			int co1 = stringLength1 / 3;
+			
+			frontString1 = input1.substring(0, co1+1);	
+			middleString1 = input1.substring(co1+1, co1+co1+1);
+			endString1 = input1.substring(co1+co1+1);
+		}
+		
+// for input2
+		
+		stringLength2 = input2.length();
+		if(stringLength2 % 3 == 0) {
+			
+			int co2 = stringLength2 / 3;
+			
+			frontString2 = input2.substring(0, co2);
+			middleString2 = input2.substring(co2, co2+co2);
+			endString2 = input2.substring(co2+co2, co2+co2+co2);
+		}
+		
+		if(stringLength2 % 3 == 1) {
+			
+			int co2 = stringLength2 / 3;
+			
+			if(stringLength2 % 2 ==0) {
+				frontString2 = input2.substring(0, co2);
+				middleString2 = input2.substring(co2, co2+2);
+				endString2 = input2.substring(co2+2);
+			} else if(stringLength2 % 2 !=0) {
+				frontString2 = input2.substring(0, co2);
+				middleString2 = input2.substring(co2, co2+3);
+				endString2 = input2.substring(co2+3);
+			} 
+		}
+		
+		if(stringLength2 % 3 == 2) {
+			
+			int co2 = stringLength2 / 3;
+			
+			frontString2 = input2.substring(0, co2+1);	
+			middleString2 = input2.substring(co2+1, co2+co2+1);
+			endString2 = input2.substring(co2+co2+1);
+		}
+		
+		
+// for input3
+		
+		stringLength3 = input3.length();
+		if(stringLength3 % 3 == 0) {
+			
+			int co3 = stringLength3 / 3;
+			
+			frontString3 = input3.substring(0, co3);
+			middleString3 = input3.substring(co3, co3+co3);
+			endString3 = input3.substring(co3+co3, co3+co3+co3);
+		}
+		
+		
+		if(stringLength3 % 3 == 1) {
+			
+			int co3 = stringLength3 / 3;
+			
+			if(stringLength3 % 2 ==0) {
+				frontString3 = input3.substring(0, co3);
+				middleString3 = input3.substring(co3, co3+2);
+				endString3 = input3.substring(co3+2);
+			} else if(stringLength3 % 2 !=0) {
+				frontString3 = input3.substring(0, co3);
+				middleString3 = input3.substring(co3, co3+3);
+				endString3 = input3.substring(co3+3);
+			} 
+		}
+		
+		if(stringLength3 % 3 == 2) {
+			
+			int co3 = stringLength3 / 3;
+			
+			frontString3 = input3.substring(0, co3+1);	
+			middleString3 = input3.substring(co3+1, co3+co3+1);
+			endString3 = input3.substring(co3+co3+1);
+		}
+		
+		//System.out.println("Input1 : "+input1);
+		//System.out.println("Input2 : "+input2);
+		//System.out.println("Input3 : "+input3);
+		
+		String output1 = frontString1 + endString2 + middleString3;
+		String output2 = middleString1 + frontString2 + endString3;
+		String output3 = endString1 + middleString2 + frontString3;
+		
+// toggle case for output3
+		
+		String toggleOutput3 = "";
+	    for (int i = 0; i < output3.length(); i++) {
+	    	char currentChar = output3.charAt(i);
+	        if (Character.isUpperCase(currentChar)) {
+	        	char currentCharToLowerCase = Character.toLowerCase(currentChar);
+	            toggleOutput3 = toggleOutput3 + currentCharToLowerCase;
+	        } else {
+	        	char currentCharToUpperCase = Character.toUpperCase(currentChar);
+	            toggleOutput3 = toggleOutput3 + currentCharToUpperCase;
+	        }
+	     }
+	       
+	     output3 = toggleOutput3;
+	       
+// print the outputs	       
+		return new Result(output1,output2,output3);
+	}
+}
+	
+    

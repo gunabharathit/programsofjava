@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class PossibleWords {
+
+	public static void main(String[] args) {
+		//String input1 = "fi_er";
+		//String input2 = "Fever:filer:Filter:Fixer:fiber:fibre:tailor:offer";
+		
+		//String input1 = "thi_";
+		//String input2 = "Thin:That:Those:this:what:Thip:why:Whap:than:THAR:thick";
+
+		//String input1 = "t_exr";
+		//String input2 = "Thank:Timer:tiger:trial:fixer:final:Alpha:tiler:Tiles:tider";
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		String input1 = scanner.nextLine();
+		String input2 = scanner.nextLine();
+		
+		identifyPossibleWords(input1, input2);
+		scanner.close();
+	}
+
+	public static void identifyPossibleWords(String input1,String input2) {
+		String tokens1[] = input1.split("[\\_]");
+		String front1Str = null;
+		String end1Str = null;
+		
+		String output1 = "";		
+		boolean flag = false;
+		
+		String tokens2[] = input2.split("[\\:]");
+		
+		if(tokens1.length == 2) {
+			front1Str = tokens1[0];
+			end1Str = tokens1[1];
+			for(int i=0;i<tokens2.length;i++) {
+				tokens2[i] = tokens2[i].toUpperCase();
+				if(tokens2[i].startsWith(front1Str.toUpperCase()) && 
+						tokens2[i].endsWith(end1Str.toUpperCase()) 
+						&& tokens2[i].length()==input1.length()) {
+					output1 = output1 + tokens2[i] + ":";	
+					flag = true;
+				}
+			}
+		} if(tokens1.length == 1) {
+			front1Str = tokens1[0];
+			for(int i=0;i<tokens2.length;i++) {
+				tokens2[i] = tokens2[i].toUpperCase();
+				// System.out.println(tokens2[i] + " : " +tokens2[i].length());
+				if(tokens2[i].startsWith(front1Str.toUpperCase()) &&
+						tokens2[i].length()==input1.length()) {
+					output1 = output1 + tokens2[i] + ":";	
+					flag = true;
+				}
+			}
+		}
+		
+		if(flag==true) 
+			System.out.println(output1.substring(0, output1.length()-1));
+		else System.out.println("ERROR-009");
+	}
+}

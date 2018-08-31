@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class FindStringCode {
+	public static String output1 = "";
+
+	public static void main(String[] args) throws IOException {
+		String input1 = null;
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		
+		input1 = bufferedReader.readLine();
+		input1 = input1.toUpperCase();
+		findStringCode(input1);
+		
+		bufferedReader.close();		
+	}
+
+	public static void findStringCode(String input1) {
+		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String tokens[] = input1.split("[\\ ]");
+		
+		for(int c=0;c<tokens.length;c++) {
+		
+			if (tokens[c].length()%2==0) { // input1 length is EVEN
+				int num1 = 0;
+				for(int i=0;i<tokens[c].length() / 2 ;i++) {
+					char start1 = tokens[c].charAt(i);
+					char end1 = tokens[c].charAt(tokens[c].length()-(i+1));					
+					num1 = num1 + Math.abs(letters.indexOf(start1) - letters.indexOf(end1));
+				}
+				output1 = output1+ String.valueOf(num1);
+			} else if (tokens[c].length()%2!=0) { // input1 length is ODD
+				int num1 = 0;
+				for(int i=0;i<(tokens[c].length()/2 + 1);i++) {
+					if(i < tokens[c].length()/2) {
+						char start1 = tokens[c].charAt(i);
+						char end1 = tokens[c].charAt(tokens[c].length()-(i+1));		
+						num1 = num1 + Math.abs(letters.indexOf(start1) - letters.indexOf(end1));						
+					} else if(i == (tokens[c].length()/2)) {
+						char start1 = tokens[c].charAt(i);				
+						num1 = num1 + Math.abs(letters.indexOf(start1)+1);										
+					}					
+				}
+				output1 = output1+ String.valueOf(num1);
+			}
+		}
+		if(output1.startsWith("0")) output1 = output1.substring(1);
+		
+		System.out.println(output1);
+	}
+}
